@@ -48,7 +48,7 @@ const pessoasArray = [
     },
 ];
 
-console.log('Array original: ', pessoasArray)
+//console.log('Array original: ', pessoasArray)
 
 // 1 - If, Else e ElseIf
 
@@ -100,3 +100,22 @@ pessoasArray.forEach(p => {
 });
 
 */
+
+
+// 3 - Operadores Logicos
+
+/*
+const filtrados = pessoasArray.filter((p) => p.nome === 'André' || p.nome === 'Vitor')
+console.log(filtrados)
+*/
+
+/*
+const filtrados = pessoasArray.filter((p) => p.nome !== 'André')
+console.log(filtrados)
+*/
+
+/*
+pessoasArray.map((p) => p.idade >= 18 ? p.maiorDeIdade = true : p.maiorDeIdade = false)
+console.log(pessoasArray)
+*/
+
