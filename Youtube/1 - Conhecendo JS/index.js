@@ -24,7 +24,6 @@ listaDeNomesSuspeitos = [
     'João', 'Marcos', 'Pedro', 'Luiz'
 ]
 
-
 console.log('Nome do Usuário: ', nome);
 console.log('Sobrenome do Usuário: ', sobrenome);
 console.log('Idade do Usuário: ', idade);
