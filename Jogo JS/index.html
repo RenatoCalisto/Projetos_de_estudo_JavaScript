@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    canvas {
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Posição e velocidade da bola
+    let ballX = canvas.width / 2;
+    let ballY = canvas.height / 2;
+    let ballSpeedX = 5;
+    let ballSpeedY = 3;
+    
+    // Posições das paletas
+    let paddle1Y = canvas.height / 2 - 50;
+    let paddle2Y = canvas.height / 2 - 50;
+    const PADDLE_HEIGHT = 100;
+    
+    // Adicionar evento de escuta para as teclas
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowUp' && paddle1Y > 0) {
+        paddle1Y -= 20;
+      } else if (event.key === 'ArrowDown' && paddle1Y < canvas.height - PADDLE_HEIGHT) {
+        paddle1Y += 20;
+      }
+    });
+    
+    function updateGame() {
+      ballX += ballSpeedX;
+      ballY += ballSpeedY;
+      
+      // Verificar colisões com as bordas
+      if (ballY < 0 || ballY > canvas.height) {
+        ballSpeedY = -ballSpeedY;
+      }
+      
+      // Verificar colisões com paletas
+      if (ballX < 20 && ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT) {
+        ballSpeedX = -ballSpeedX;
+      }
+      if (ballX > canvas.width - 20 && ballY > paddle2Y && ballY < paddle2Y + PADDLE_HEIGHT) {
+        ballSpeedX = -ballSpeedX;
+      }
+      
+      // Movimentar a paleta 2 (controle do jogador)
+      if (ballY > paddle2Y + PADDLE_HEIGHT / 2) {
+        paddle2Y += 5;
+      } else {
+        paddle2Y -= 5;
+      }
+      
+      // Limpar o canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Desenhar elementos
+      ctx.fillRect(10, paddle1Y, 10, PADDLE_HEIGHT); // Paleta 1
+      ctx.fillRect(canvas.width - 20, paddle2Y, 10, PADDLE_HEIGHT); // Paleta 2
+      ctx.beginPath();
+      ctx.arc(ballX, ballY, 10, 0, Math.PI * 2); // Bola
+      ctx.fill();
+      
+      requestAnimationFrame(updateGame);
+    }
+    
+    updateGame(); // Iniciar o loop de atualização do jogo
+  </script>
+</body>
+</html>
